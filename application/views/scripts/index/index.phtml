@@ -1,0 +1,60 @@
+<div class="container">
+    <table class="table table-hover">
+    <tr>
+        <th>Sr No</th>
+         <th>Brand Name</th>
+        <th>Area Milage</th>
+        <th>Area Milage</th>
+        <th>Engine CC</th>
+        <th>Fuel Type</th>
+        <th>Setting Capicity</th>
+        <th>Body Type</th>
+        <th>&nbsp;</th>
+    </tr>
+    <?php 
+     $i=1;
+    foreach($this->carsdetails as $carsdetails) : ?>
+
+
+    <?php
+
+    $db = Zend_Db_Table::getDefaultAdapter(); 
+    $brand = new Application_Model_DbTable_Brands();
+
+    $brandid=$carsdetails->brandid;
+
+    $dddd=$brand->brandname($brandid);
+    foreach($dddd as $key=>$val)
+    {
+
+         $brandnamemain= $val;
+    }
+    
+
+
+    ?>
+        
+    <tr>
+         <td><?php echo $this->escape($i);?></td>
+         <td><?php echo $this->escape($brandnamemain);?></td>
+        <td><?php echo $this->escape($carsdetails->areamilage);?></td>
+        <td><?php echo $this->escape($carsdetails->engine);?></td>
+        <td><?php echo $this->escape($carsdetails->fueltype);?></td>
+        <td><?php echo $this->escape($carsdetails->settingcapicity);?></td>
+        <td><?php echo $this->escape($carsdetails->bodytype);?></td>
+    <td style="text-align: right;">
+        <a href="<?php echo $this->url(array('controller'=>'index','action'=>'edit', 'id'=>$carsdetails->id));?>" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-refresh"></span> </a>
+        <a href="<?php echo $this->url(array('controller'=>'index','action'=>'delete', 'id'=>$carsdetails->id));?>" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-remove"></span> </a>
+    </td>
+    </tr>
+        <?php 
+
+        $i++;
+    endforeach; ?>
+    </table>
+<?php
+    $this->headTitle($this->title);
+?>
+<p><a href="<?php echo $this->url(array('controller'=>'index',  'action'=>'add'));?>" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus"></span></a></p>
+
+</div>
